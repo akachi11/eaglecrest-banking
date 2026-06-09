@@ -133,28 +133,34 @@ const Landing = () => {
           scrolled ? 'bg-[#0a0a0a]/95 backdrop-blur-sm border-b border-white/[0.06]' : 'bg-transparent'
         }`}
       >
-        <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-          <span className="font-display text-xl font-semibold tracking-[0.12em] text-[#C9A84C] select-none">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 h-14 sm:h-16 flex items-center justify-between gap-3">
+          {/* wordmark — shrinks slightly on xs */}
+          <span className="font-display text-base sm:text-xl font-semibold tracking-[0.12em] text-[#C9A84C] select-none shrink-0">
             EAGLECREST
           </span>
+
+          {/* desktop nav links */}
           <nav className="hidden md:flex items-center gap-7 text-sm text-white/60">
             <a href="#features" className="hover:text-white transition-colors duration-150">Features</a>
             <a href="#cards" className="hover:text-white transition-colors duration-150">Cards</a>
             <a href="#accounts" className="hover:text-white transition-colors duration-150">Accounts</a>
             <a href="#loans" className="hover:text-white transition-colors duration-150">Loans</a>
           </nav>
-          <div className="flex items-center gap-3">
+
+          {/* CTA buttons — stack-friendly on mobile */}
+          <div className="flex items-center gap-2 shrink-0">
             <Link
               to="/sign-in"
-              className="text-sm text-white/70 hover:text-white transition-colors duration-150 px-4 py-1.5 rounded-md hover:bg-white/[0.06]"
+              className="text-xs sm:text-sm font-medium text-white/70 hover:text-white transition-colors duration-150 px-3 sm:px-4 py-1.5 rounded-md hover:bg-white/[0.06] whitespace-nowrap"
             >
               Sign In
             </Link>
             <Link
               to="/sign-up"
-              className="text-sm font-medium px-4 py-2 rounded-md bg-[#C9A84C] text-black hover:bg-[#d4b55c] transition-colors duration-150"
+              className="text-xs sm:text-sm font-medium px-3 sm:px-4 py-1.5 sm:py-2 rounded-md bg-[#C9A84C] text-black hover:bg-[#d4b55c] transition-colors duration-150 whitespace-nowrap"
             >
-              Open Account
+              <span className="hidden sm:inline">Open Account</span>
+              <span className="sm:hidden">Get Started</span>
             </Link>
           </div>
         </div>
