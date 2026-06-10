@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
+import { LiveChat } from '../components/LiveChat/LiveChat'
 
 // ─── Unsplash photo helper ────────────────────────────────────────────────────
 const img = (id: string, w = 800) =>
@@ -591,6 +592,7 @@ const Landing = () => {
           <p className="text-[11px] text-white/20">© {new Date().getFullYear()} EagleCrest Banking</p>
         </div>
       </footer>
+      <LiveChat />
     </div>
   )
 }

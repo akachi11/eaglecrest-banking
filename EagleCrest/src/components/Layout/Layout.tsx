@@ -4,6 +4,7 @@ import { Sidebar } from '../SideBar/Sidebar'
 import { Topbar } from '../Topbar/Topbar'
 import { BankingProvider } from '../../context/BankingContext'
 import { NotificationProvider } from '../../context/NotificationContext'
+import { LiveChat } from '../LiveChat/LiveChat'
 
 export const Layout: React.FC = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false)
@@ -20,6 +21,7 @@ export const Layout: React.FC = () => {
             </main>
           </div>
         </div>
+        <LiveChat />
       </NotificationProvider>
     </BankingProvider>
   )
