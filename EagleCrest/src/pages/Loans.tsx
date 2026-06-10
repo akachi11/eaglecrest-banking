@@ -178,7 +178,7 @@ const Loans = () => {
                         </div>
                       </div>
                       <div className="flex items-center gap-3 shrink-0">
-                        {paidId === l._id && <Badge variant="success" dot>Payment made</Badge>}
+                        {paidId === l._id && <Badge variant="warning" dot>Payment pending</Badge>}
                         {l.status === 'paid_off' && <Badge variant="success">Paid Off</Badge>}
                         {loanPending && (
                           <span className="text-[10px] font-medium px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-400 border border-amber-500/30">

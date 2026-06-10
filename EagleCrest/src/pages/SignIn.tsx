@@ -45,7 +45,7 @@ const SignIn: React.FC = () => {
         {/* wordmark */}
         <div className="relative">
           <span className="font-display text-2xl font-semibold tracking-[0.12em] text-gold select-none">
-            CRESTMARK
+            APEXTRUST BANK
           </span>
           <p className="text-xs text-text-muted tracking-[0.08em] mt-1">Private Banking</p>
         </div>
@@ -57,7 +57,7 @@ const SignIn: React.FC = () => {
             Your wealth,<br />managed with<br />precision.
           </p>
           <p className="text-sm text-text-secondary mt-5 leading-relaxed max-w-xs">
-            Crestmark gives you a complete view of your finances — accounts, cards, loans, and
+            ApexTrust gives you a complete view of your finances — accounts, cards, loans, and
             savings goals — all in one place.
           </p>
         </div>
@@ -73,7 +73,7 @@ const SignIn: React.FC = () => {
         {/* mobile wordmark */}
         <div className="lg:hidden mb-10 text-center">
           <span className="font-display text-xl font-semibold tracking-[0.12em] text-gold select-none">
-            CRESTMARK
+            APEXTRUST BANK
           </span>
           <p className="text-xs text-text-muted tracking-[0.06em] mt-0.5">Private Banking</p>
         </div>

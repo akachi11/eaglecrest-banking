@@ -208,7 +208,7 @@ const Savings = () => {
                         </div>
                       </div>
                       <div className="flex items-center gap-3 shrink-0">
-                        {justAdded === g._id && <Badge variant="success" dot>+$100 added</Badge>}
+                        {justAdded === g._id && <Badge variant="warning" dot>$100 deposit pending</Badge>}
                         {g.isCompleted ? (
                           <Badge variant="success">Complete</Badge>
                         ) : (
@@ -256,7 +256,7 @@ const Savings = () => {
               <div className="relative flex items-start justify-between">
                 <div>
                   <p className="text-[11px] uppercase tracking-[0.16em] text-text-muted">High-Yield Vault</p>
-                  <p className="font-display text-lg text-text-primary mt-1">Crestmark Growth Account</p>
+                  <p className="font-display text-lg text-text-primary mt-1">ApexTrust Growth Account</p>
                 </div>
                 <i className="ti ti-building-bank text-info text-2xl" aria-hidden="true" />
               </div>

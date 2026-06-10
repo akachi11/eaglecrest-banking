@@ -19,41 +19,41 @@ const FieldError = ({ msg }: { msg?: string }) =>
 
 // ─── step definitions ─────────────────────────────────────────────────────────
 const STEPS = [
-  { label: 'Personal Info',     icon: 'ti-user'         },
-  { label: 'Address',           icon: 'ti-map-pin'      },
-  { label: 'Identity',          icon: 'ti-id'           },
-  { label: 'Employment',        icon: 'ti-briefcase'    },
-  { label: 'Account & Security', icon: 'ti-lock'        },
+  { label: 'Personal Info', icon: 'ti-user' },
+  { label: 'Address', icon: 'ti-map-pin' },
+  { label: 'Identity', icon: 'ti-id' },
+  { label: 'Employment', icon: 'ti-briefcase' },
+  { label: 'Account & Security', icon: 'ti-lock' },
 ]
 
 // ─── data ─────────────────────────────────────────────────────────────────────
 const ID_TYPES = [
-  { id: 'passport',       label: "Passport"         },
+  { id: 'passport', label: "Passport" },
   { id: 'driver_license', label: "Driver's License" },
-  { id: 'state_id',       label: "State ID"         },
+  { id: 'state_id', label: "State ID" },
 ] as const
 
 const EMPLOYMENT_STATUSES = ['Employed', 'Self-Employed', 'Retired', 'Student', 'Unemployed']
 
 const INCOME_RANGES: { label: string; value: number }[] = [
-  { label: 'Under $25,000',      value: 20000  },
-  { label: '$25,000 – $50,000',  value: 37500  },
-  { label: '$50,000 – $100,000', value: 75000  },
-  { label: '$100,000 – $200,000',value: 150000 },
-  { label: '$200,000+',          value: 250000 },
+  { label: 'Under $25,000', value: 20000 },
+  { label: '$25,000 – $50,000', value: 37500 },
+  { label: '$50,000 – $100,000', value: 75000 },
+  { label: '$100,000 – $200,000', value: 150000 },
+  { label: '$200,000+', value: 250000 },
 ]
 
 const ACCOUNT_TYPES = [
   { id: 'checking', label: 'Everyday Checking', desc: 'Best for daily spending, no min. balance', icon: 'ti-building-bank', color: '#5B9BD5' },
-  { id: 'savings',  label: 'High-Yield Savings', desc: '4.25% APY, goal tracking & auto round-ups',  icon: 'ti-pig',           color: '#22c55e' },
-  { id: 'private',  label: 'Private Wealth',     desc: 'Premium rates, dedicated advisor & card',   icon: 'ti-diamond',       color: '#C9A84C' },
+  { id: 'savings', label: 'High-Yield Savings', desc: '4.25% APY, goal tracking & auto round-ups', icon: 'ti-pig', color: '#22c55e' },
+  { id: 'private', label: 'Private Wealth', desc: 'Premium rates, dedicated advisor & card', icon: 'ti-diamond', color: '#C9A84C' },
 ] as const
 
 const US_STATES = [
-  'AL','AK','AZ','AR','CA','CO','CT','DE','FL','GA','HI','ID','IL','IN','IA',
-  'KS','KY','LA','ME','MD','MA','MI','MN','MS','MO','MT','NE','NV','NH','NJ',
-  'NM','NY','NC','ND','OH','OK','OR','PA','RI','SC','SD','TN','TX','UT','VT',
-  'VA','WA','WV','WI','WY','DC',
+  'AL', 'AK', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'FL', 'GA', 'HI', 'ID', 'IL', 'IN', 'IA',
+  'KS', 'KY', 'LA', 'ME', 'MD', 'MA', 'MI', 'MN', 'MS', 'MO', 'MT', 'NE', 'NV', 'NH', 'NJ',
+  'NM', 'NY', 'NC', 'ND', 'OH', 'OK', 'OR', 'PA', 'RI', 'SC', 'SD', 'TN', 'TX', 'UT', 'VT',
+  'VA', 'WA', 'WV', 'WI', 'WY', 'DC',
 ]
 
 // ─── types ────────────────────────────────────────────────────────────────────
@@ -83,7 +83,7 @@ function validateStep(step: number, f: FormState): FormErrors {
   const e: FormErrors = {}
   if (step === 0) {
     if (!f.firstName.trim()) e.firstName = 'Required'
-    if (!f.lastName.trim())  e.lastName  = 'Required'
+    if (!f.lastName.trim()) e.lastName = 'Required'
     if (!f.email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(f.email)) e.email = 'Enter a valid email'
     if (!f.phone.trim()) e.phone = 'Required'
     if (!f.dob) e.dob = 'Required'
@@ -94,17 +94,17 @@ function validateStep(step: number, f: FormState): FormErrors {
   }
   if (step === 1) {
     if (!f.street.trim()) e.street = 'Required'
-    if (!f.city.trim())   e.city   = 'Required'
-    if (!f.state)         e.state  = 'Required'
-    if (!f.zip.trim())    e.zip    = 'Required'
+    if (!f.city.trim()) e.city = 'Required'
+    if (!f.state) e.state = 'Required'
+    if (!f.zip.trim()) e.zip = 'Required'
   }
   if (step === 2) {
-    if (!f.idType)        e.idType   = 'Select an ID type'
+    if (!f.idType) e.idType = 'Select an ID type'
     if (!f.ssnLast4.trim() || !/^\d{4}$/.test(f.ssnLast4)) e.ssnLast4 = 'Enter the last 4 digits of your SSN'
   }
   if (step === 3) {
     if (!f.employmentStatus) e.employmentStatus = 'Select your employment status'
-    if (!f.incomeRange)      e.incomeRange      = 'Select an income range'
+    if (!f.incomeRange) e.incomeRange = 'Select an income range'
   }
   if (step === 4) {
     if (!f.password || f.password.length < 8) e.password = 'Minimum 8 characters'
@@ -116,13 +116,13 @@ function validateStep(step: number, f: FormState): FormErrors {
 
 // ─── main component ───────────────────────────────────────────────────────────
 const SignUp: React.FC = () => {
-  const [step, setStep]         = useState(0)
-  const [form, setForm]         = useState<FormState>(INIT)
-  const [errors, setErrors]     = useState<FormErrors>({})
+  const [step, setStep] = useState(0)
+  const [form, setForm] = useState<FormState>(INIT)
+  const [errors, setErrors] = useState<FormErrors>({})
   const [apiError, setApiError] = useState('')
-  const [loading, setLoading]   = useState(false)
+  const [loading, setLoading] = useState(false)
   const [submitted, setSubmitted] = useState(false)
-  const [showPwd, setShowPwd]   = useState(false)
+  const [showPwd, setShowPwd] = useState(false)
   const [showConfirm, setShowConfirm] = useState(false)
 
   const set = <K extends keyof FormState>(field: K) => (val: FormState[K]) => {
@@ -196,7 +196,7 @@ const SignUp: React.FC = () => {
               Application Submitted
             </h1>
             <p className="text-white/50 leading-relaxed mb-2">
-              Thank you, <strong className="text-white/80">{form.firstName}</strong>. Your Crestmark account application has been received.
+              Thank you, <strong className="text-white/80">{form.firstName}</strong>. Your ApexTrust account application has been received.
             </p>
             <p className="text-white/40 text-sm leading-relaxed">
               Our team will review your application and send a decision to <strong className="text-white/60">{form.email}</strong> within <strong className="text-white/60">1–2 business days</strong>. Once approved, you'll be able to sign in and access your account.
@@ -246,7 +246,7 @@ const SignUp: React.FC = () => {
         {/* wordmark */}
         <Link to="/" className="relative">
           <span className="font-display text-2xl font-semibold tracking-[0.12em] text-[#C9A84C] select-none">
-            CRESTMARK
+            APEXTRUST BANK
           </span>
           <p className="text-xs text-white/30 tracking-[0.08em] mt-1">Private Banking</p>
         </Link>
@@ -256,18 +256,16 @@ const SignUp: React.FC = () => {
           {STEPS.map((s, i) => (
             <div
               key={s.label}
-              className={`flex items-center gap-3.5 transition-all duration-200 ${
-                i < step ? 'opacity-60' : i === step ? 'opacity-100' : 'opacity-25'
-              }`}
+              className={`flex items-center gap-3.5 transition-all duration-200 ${i < step ? 'opacity-60' : i === step ? 'opacity-100' : 'opacity-25'
+                }`}
             >
               <span
-                className={`w-8 h-8 rounded-full flex items-center justify-center text-sm shrink-0 transition-colors duration-200 ${
-                  i < step
-                    ? 'bg-[#C9A84C]/20 text-[#C9A84C]'
-                    : i === step
+                className={`w-8 h-8 rounded-full flex items-center justify-center text-sm shrink-0 transition-colors duration-200 ${i < step
+                  ? 'bg-[#C9A84C]/20 text-[#C9A84C]'
+                  : i === step
                     ? 'bg-[#C9A84C] text-black font-bold'
                     : 'bg-white/[0.07] text-white/40'
-                }`}
+                  }`}
               >
                 {i < step
                   ? <i className="ti ti-check" style={{ fontSize: 14 }} aria-hidden="true" />
@@ -297,7 +295,7 @@ const SignUp: React.FC = () => {
         <div className="lg:hidden mb-8 text-center">
           <Link to="/">
             <span className="font-display text-xl font-semibold tracking-[0.12em] text-[#C9A84C] select-none">
-              CRESTMARK
+              APEXTRUST BANK
             </span>
           </Link>
           {/* mobile step dots */}
@@ -482,11 +480,10 @@ const SignUp: React.FC = () => {
                       key={id.id}
                       type="button"
                       onClick={() => set('idType')(id.id)}
-                      className={`py-2.5 px-3 rounded-lg border text-sm font-medium transition-colors duration-150 ${
-                        form.idType === id.id
-                          ? 'border-[#C9A84C]/50 bg-[#C9A84C]/[0.08] text-[#C9A84C]'
-                          : 'border-white/10 bg-[#111] text-white/50 hover:text-white/80 hover:border-white/20'
-                      }`}
+                      className={`py-2.5 px-3 rounded-lg border text-sm font-medium transition-colors duration-150 ${form.idType === id.id
+                        ? 'border-[#C9A84C]/50 bg-[#C9A84C]/[0.08] text-[#C9A84C]'
+                        : 'border-white/10 bg-[#111] text-white/50 hover:text-white/80 hover:border-white/20'
+                        }`}
                     >
                       {id.label}
                     </button>
@@ -532,11 +529,10 @@ const SignUp: React.FC = () => {
                       key={s}
                       type="button"
                       onClick={() => set('employmentStatus')(s)}
-                      className={`py-2.5 px-3 rounded-lg border text-sm font-medium transition-colors duration-150 ${
-                        form.employmentStatus === s
-                          ? 'border-[#C9A84C]/50 bg-[#C9A84C]/[0.08] text-[#C9A84C]'
-                          : 'border-white/10 bg-[#111] text-white/50 hover:text-white/80 hover:border-white/20'
-                      }`}
+                      className={`py-2.5 px-3 rounded-lg border text-sm font-medium transition-colors duration-150 ${form.employmentStatus === s
+                        ? 'border-[#C9A84C]/50 bg-[#C9A84C]/[0.08] text-[#C9A84C]'
+                        : 'border-white/10 bg-[#111] text-white/50 hover:text-white/80 hover:border-white/20'
+                        }`}
                     >
                       {s}
                     </button>
@@ -563,11 +559,10 @@ const SignUp: React.FC = () => {
                       key={r.value}
                       type="button"
                       onClick={() => set('incomeRange')(r.value)}
-                      className={`flex items-center justify-between px-4 py-3 rounded-lg border text-sm transition-colors duration-150 ${
-                        form.incomeRange === r.value
-                          ? 'border-[#C9A84C]/50 bg-[#C9A84C]/[0.08] text-[#C9A84C]'
-                          : 'border-white/10 bg-[#111] text-white/50 hover:text-white/80 hover:border-white/20'
-                      }`}
+                      className={`flex items-center justify-between px-4 py-3 rounded-lg border text-sm transition-colors duration-150 ${form.incomeRange === r.value
+                        ? 'border-[#C9A84C]/50 bg-[#C9A84C]/[0.08] text-[#C9A84C]'
+                        : 'border-white/10 bg-[#111] text-white/50 hover:text-white/80 hover:border-white/20'
+                        }`}
                     >
                       {r.label}
                       {form.incomeRange === r.value && (
@@ -592,11 +587,10 @@ const SignUp: React.FC = () => {
                       key={a.id}
                       type="button"
                       onClick={() => set('accountType')(a.id)}
-                      className={`flex items-center gap-4 p-4 rounded-lg border text-left transition-colors duration-150 ${
-                        form.accountType === a.id
-                          ? 'border-[#C9A84C]/40 bg-[#C9A84C]/[0.06]'
-                          : 'border-white/10 bg-[#111] hover:border-white/20'
-                      }`}
+                      className={`flex items-center gap-4 p-4 rounded-lg border text-left transition-colors duration-150 ${form.accountType === a.id
+                        ? 'border-[#C9A84C]/40 bg-[#C9A84C]/[0.06]'
+                        : 'border-white/10 bg-[#111] hover:border-white/20'
+                        }`}
                     >
                       <span
                         className="w-10 h-10 rounded-lg flex items-center justify-center shrink-0"
@@ -668,7 +662,7 @@ const SignUp: React.FC = () => {
                   className="mt-0.5 accent-[#C9A84C] w-4 h-4 shrink-0"
                 />
                 <span className="text-xs text-white/40 leading-relaxed">
-                  I confirm that all information provided is accurate. I authorise Crestmark to verify my identity and run a soft credit check as part of the account opening process. I agree to the{' '}
+                  I confirm that all information provided is accurate. I authorise ApexTrust to verify my identity and run a soft credit check as part of the account opening process. I agree to the{' '}
                   <span className="text-[#C9A84C]">Terms of Service</span> and{' '}
                   <span className="text-[#C9A84C]">Privacy Policy</span>.
                 </span>

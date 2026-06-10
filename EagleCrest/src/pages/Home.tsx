@@ -136,7 +136,7 @@ const Home = () => {
               <div className="flex items-start justify-between relative">
                 <div>
                   <p className="text-[11px] uppercase tracking-[0.16em] text-text-muted">
-                    Crestmark Private Account
+                    ApexTrust Private Account
                   </p>
                   <p className="font-display text-lg text-text-primary mt-1">{user?.name}</p>
                 </div>

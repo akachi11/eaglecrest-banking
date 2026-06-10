@@ -51,9 +51,9 @@ export const Topbar: React.FC<TopbarProps> = ({ onMenuClick }) => {
         </button>
         <div
           className="font-display text-lg font-semibold text-gold tracking-[0.06em] select-none truncate"
-          aria-label="Crestmark Bank"
+          aria-label="ApexTrust Bank"
         >
-          CRESTMARK
+          APEXTRUST BANK
         </div>
       </div>
 
@@ -101,9 +101,8 @@ export const Topbar: React.FC<TopbarProps> = ({ onMenuClick }) => {
                   notifications.map((n) => (
                     <div
                       key={n._id}
-                      className={`flex items-start gap-3 px-4 py-3.5 border-b border-border last:border-b-0 transition-colors duration-150 ${
-                        !n.read ? 'bg-gold/[0.03]' : ''
-                      }`}
+                      className={`flex items-start gap-3 px-4 py-3.5 border-b border-border last:border-b-0 transition-colors duration-150 ${!n.read ? 'bg-gold/[0.03]' : ''
+                        }`}
                     >
                       {/* icon */}
                       <span
