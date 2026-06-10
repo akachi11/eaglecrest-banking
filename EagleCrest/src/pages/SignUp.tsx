@@ -196,7 +196,7 @@ const SignUp: React.FC = () => {
               Application Submitted
             </h1>
             <p className="text-white/50 leading-relaxed mb-2">
-              Thank you, <strong className="text-white/80">{form.firstName}</strong>. Your EagleCrest account application has been received.
+              Thank you, <strong className="text-white/80">{form.firstName}</strong>. Your Crestmark account application has been received.
             </p>
             <p className="text-white/40 text-sm leading-relaxed">
               Our team will review your application and send a decision to <strong className="text-white/60">{form.email}</strong> within <strong className="text-white/60">1–2 business days</strong>. Once approved, you'll be able to sign in and access your account.
@@ -246,7 +246,7 @@ const SignUp: React.FC = () => {
         {/* wordmark */}
         <Link to="/" className="relative">
           <span className="font-display text-2xl font-semibold tracking-[0.12em] text-[#C9A84C] select-none">
-            EAGLECREST
+            CRESTMARK
           </span>
           <p className="text-xs text-white/30 tracking-[0.08em] mt-1">Private Banking</p>
         </Link>
@@ -297,7 +297,7 @@ const SignUp: React.FC = () => {
         <div className="lg:hidden mb-8 text-center">
           <Link to="/">
             <span className="font-display text-xl font-semibold tracking-[0.12em] text-[#C9A84C] select-none">
-              EAGLECREST
+              CRESTMARK
             </span>
           </Link>
           {/* mobile step dots */}
@@ -668,7 +668,7 @@ const SignUp: React.FC = () => {
                   className="mt-0.5 accent-[#C9A84C] w-4 h-4 shrink-0"
                 />
                 <span className="text-xs text-white/40 leading-relaxed">
-                  I confirm that all information provided is accurate. I authorise EagleCrest to verify my identity and run a soft credit check as part of the account opening process. I agree to the{' '}
+                  I confirm that all information provided is accurate. I authorise Crestmark to verify my identity and run a soft credit check as part of the account opening process. I agree to the{' '}
                   <span className="text-[#C9A84C]">Terms of Service</span> and{' '}
                   <span className="text-[#C9A84C]">Privacy Policy</span>.
                 </span>

@@ -155,7 +155,7 @@ const Settings = () => {
               <div>
                 <p className="text-sm font-medium text-text-primary">{user?.name ?? '—'}</p>
                 <p className="text-xs text-text-muted mt-0.5">
-                  EagleCrest Private Account · •••• {account?.number ?? '——'}
+                  Crestmark Private Account · •••• {account?.number ?? '——'}
                 </p>
                 <button className="text-xs text-gold hover:text-gold-light transition-colors duration-150 mt-1.5 inline-flex items-center gap-1.5">
                   <i className="ti ti-camera" style={{ fontSize: 13 }} aria-hidden="true" />
@@ -296,7 +296,7 @@ const Settings = () => {
               </div>
               <div className="flex items-center justify-between">
                 <span className="text-xs text-text-muted">Account Type</span>
-                <span className="text-sm text-text-primary font-medium">EagleCrest Private</span>
+                <span className="text-sm text-text-primary font-medium">Crestmark Private</span>
               </div>
               <div className="flex items-center justify-between">
                 <span className="text-xs text-text-muted">Member Since</span>
@@ -362,7 +362,7 @@ const Settings = () => {
                 <p className="text-xs text-text-muted mt-1">
                   {confirmingClose
                     ? 'Are you sure? This action cannot be undone and requires contacting support to reverse.'
-                    : 'Permanently close your EagleCrest account and all linked cards.'}
+                    : 'Permanently close your Crestmark account and all linked cards.'}
                 </p>
                 <div className="flex items-center gap-2 mt-3">
                   <Button

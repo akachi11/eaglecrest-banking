@@ -1,4 +1,4 @@
-// Knowledge base for the EagleCrest live chat assistant.
+// Knowledge base for the Crestmark live chat assistant.
 // This is a lightweight, fully client-side "AI" — it scores each entry
 // against the user's message using keyword overlap and returns the
 // best match. No external API, account, or API key required.
@@ -142,13 +142,13 @@ export const CHAT_TOPICS: ChatTopic[] = [
       'hacked', 'scam',
     ],
     answer:
-      "EagleCrest takes security seriously — your session is protected with token-based authentication. " +
+      "Crestmark takes security seriously — your session is protected with token-based authentication. " +
       "If you notice suspicious activity or an unauthorized transaction, freeze any affected cards immediately from the Cards page and contact support right away.",
   },
 ];
 
 export const CHAT_GREETING =
-  "Hi! I'm the EagleCrest assistant. Ask me about opening accounts, loan repayments, transfers, cards, savings goals, and more.";
+  "Hi! I'm the Crestmark assistant. Ask me about opening accounts, loan repayments, transfers, cards, savings goals, and more.";
 
 /** Suggested quick-reply prompts shown when the chat opens. */
 export const CHAT_SUGGESTIONS = [

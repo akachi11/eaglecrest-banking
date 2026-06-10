@@ -51,9 +51,9 @@ export const Topbar: React.FC<TopbarProps> = ({ onMenuClick }) => {
         </button>
         <div
           className="font-display text-lg font-semibold text-gold tracking-[0.06em] select-none truncate"
-          aria-label="EagleCrest Banking"
+          aria-label="Crestmark Bank"
         >
-          EAGLECREST
+          CRESTMARK
         </div>
       </div>
 

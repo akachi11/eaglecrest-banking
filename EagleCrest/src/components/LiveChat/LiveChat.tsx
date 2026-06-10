@@ -69,7 +69,7 @@ export const LiveChat: React.FC = () => {
               <i className="ti ti-headset text-base" aria-hidden="true" />
             </div>
             <div className="min-w-0">
-              <p className="text-sm font-medium text-text-primary">EagleCrest Assistant</p>
+              <p className="text-sm font-medium text-text-primary">Crestmark Assistant</p>
               <p className="text-[11px] text-text-secondary">Usually replies instantly</p>
             </div>
           </div>

@@ -256,7 +256,7 @@ const Savings = () => {
               <div className="relative flex items-start justify-between">
                 <div>
                   <p className="text-[11px] uppercase tracking-[0.16em] text-text-muted">High-Yield Vault</p>
-                  <p className="font-display text-lg text-text-primary mt-1">EagleCrest Growth Account</p>
+                  <p className="font-display text-lg text-text-primary mt-1">Crestmark Growth Account</p>
                 </div>
                 <i className="ti ti-building-bank text-info text-2xl" aria-hidden="true" />
               </div>

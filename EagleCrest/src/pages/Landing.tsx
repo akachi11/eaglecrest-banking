@@ -139,19 +139,19 @@ const testimonials = [
     name: 'Sarah Mitchell',
     role: 'Nursing student, Ohio',
     photo: img('1438761681033-6461ffad8d80', 200),
-    quote: "EagleCrest gave me a student loan with no origination fee and deferred payments until I graduate. Honestly the easiest financial decision I've made.",
+    quote: "Crestmark gave me a student loan with no origination fee and deferred payments until I graduate. Honestly the easiest financial decision I've made.",
   },
   {
     name: 'James Harrington',
     role: 'Homeowner, Texas',
     photo: img('1507003211169-0a1dd7228f2d', 200),
-    quote: "We closed on our first home with an EagleCrest mortgage. The rate was better than anything my credit union offered and the process was completely online.",
+    quote: "We closed on our first home with a Crestmark mortgage. The rate was better than anything my credit union offered and the process was completely online.",
   },
   {
     name: 'Brianna Cole',
     role: 'Small business owner, Georgia',
     photo: img('1573496359142-b8d87734a5a2', 200),
-    quote: "I got a $40,000 business loan in under a week. My boutique would not exist without EagleCrest. Straightforward, fast, and zero surprises.",
+    quote: "I got a $40,000 business loan in under a week. My boutique would not exist without Crestmark. Straightforward, fast, and zero surprises.",
   },
 ]
 
@@ -175,7 +175,7 @@ const MiniCard = ({ label, color, accentColor, network }: {
       style={{ background: `radial-gradient(circle, ${accentColor} 0%, transparent 70%)` }} />
     <div className="flex items-center justify-between relative">
       <div className="flex flex-col gap-0.5">
-        <span className="text-white/40 text-[10px] uppercase tracking-widest">EagleCrest</span>
+        <span className="text-white/40 text-[10px] uppercase tracking-widest">Crestmark</span>
         <span className="text-white font-medium text-sm">{label}</span>
       </div>
       <div className="w-8 h-8 rounded-full border-2 opacity-70" style={{ borderColor: accentColor }} />
@@ -219,7 +219,7 @@ const Landing = () => {
       }`}>
         <div className="max-w-6xl mx-auto px-4 sm:px-6 h-14 sm:h-16 flex items-center justify-between gap-3">
           <span className="font-display text-base sm:text-xl font-semibold tracking-[0.12em] text-[#C9A84C] select-none shrink-0">
-            EAGLECREST
+            CRESTMARK
           </span>
           <nav className="hidden md:flex items-center gap-7 text-sm text-white/60">
             <a href="#features" className="hover:text-white transition-colors duration-150">Features</a>
@@ -336,7 +336,7 @@ const Landing = () => {
               Simple tools, powerful results
             </h2>
             <p className="text-[#555] mt-3 max-w-lg mx-auto text-sm sm:text-base">
-              Whether you're sending money to a friend or planning for retirement — EagleCrest has you covered.
+              Whether you're sending money to a friend or planning for retirement — Crestmark has you covered.
             </p>
           </div>
 
@@ -420,7 +420,7 @@ const Landing = () => {
               Pick the account that fits your life
             </h2>
             <p className="text-[#555] mt-3 max-w-md mx-auto text-sm sm:text-base">
-              From your first job to your first home — there's an EagleCrest account that grows with you.
+              From your first job to your first home — there's a Crestmark account that grows with you.
             </p>
           </div>
 
@@ -580,7 +580,7 @@ const Landing = () => {
         <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
           <div>
             <span className="font-display text-lg font-semibold tracking-[0.12em] text-[#C9A84C] select-none">
-              EAGLECREST
+              CRESTMARK
             </span>
             <p className="text-[11px] text-white/25 mt-1">Member FDIC · Equal Housing Lender</p>
           </div>
@@ -589,7 +589,7 @@ const Landing = () => {
             <span className="hover:text-white/60 cursor-pointer transition-colors duration-150">Terms of Service</span>
             <span className="hover:text-white/60 cursor-pointer transition-colors duration-150">Contact Us</span>
           </div>
-          <p className="text-[11px] text-white/20">© {new Date().getFullYear()} EagleCrest Banking</p>
+          <p className="text-[11px] text-white/20">© {new Date().getFullYear()} Crestmark Bank</p>
         </div>
       </footer>
       <LiveChat />
