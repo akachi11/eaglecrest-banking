@@ -1,6 +1,6 @@
 export const API_BASE =
   (import.meta.env.VITE_API_URL as string | undefined) ??
-  (import.meta.env.DEV ? 'http://localhost:5000/api' : 'https://crestmark-bank.onrender.com/api');
+  (import.meta.env.DEV ? 'http://localhost:5000/api' : 'https://eaglecrest-banking.onrender.com/api');
 
 // ─── low-level fetch wrapper ─────────────────────────────────────────────────
 
