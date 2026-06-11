@@ -1,7 +1,7 @@
 {
-  "name": "eaglecrest-server",
+  "name": "apextrust-server",
   "version": "1.0.0",
-  "description": "EagleCrest Banking API",
+  "description": "ApexTrust Bank API",
   "main": "src/server.js",
   "type": "module",
   "scripts": {

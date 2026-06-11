@@ -1,5 +1,9 @@
 import Loan from '../models/Loan.js';
+import Account from '../models/Account.js';
+import Transaction from '../models/Transaction.js';
 import { createNotification } from './notification.controller.js';
+
+const generateRef = () => `TXN-${Date.now()}-${Math.random().toString(36).slice(2, 7).toUpperCase()}`;
 
 export const getLoans = async (req, res, next) => {
   try {
@@ -57,15 +61,35 @@ export const makePayment = async (req, res, next) => {
     if (loan.status === 'paid_off') return res.status(400).json({ message: 'Loan already paid off' });
     if (loan.status === 'pending') return res.status(400).json({ message: 'Loan is still pending approval' });
 
-    loan.balance = Math.max(0, loan.balance - loan.monthlyPayment);
-    if (loan.balance === 0) loan.status = 'paid_off';
+    const account = await Account.findOne({ user: req.user._id, isActive: true });
+    if (!account) return res.status(404).json({ message: 'Account not found' });
 
-    const nextDue = new Date(loan.nextDue);
-    nextDue.setMonth(nextDue.getMonth() + 1);
-    loan.nextDue = nextDue;
+    // The loan balance/next due date are not updated yet — a pending
+    // transaction is recorded and an admin applies the payment manually.
+    const txn = await Transaction.create({
+      account: account._id,
+      user: req.user._id,
+      name: `${loan.name} Payment`,
+      category: 'Loan Payment',
+      amount: loan.monthlyPayment,
+      type: 'debit',
+      status: 'pending',
+      date: new Date(),
+      reference: generateRef(),
+      icon: 'ti-receipt',
+      iconBg: 'rgba(34,197,94,0.12)',
+      iconColor: '#22c55e',
+    });
 
-    await loan.save();
-    res.json({ loan });
+    await createNotification(req.user._id, {
+      title: 'Loan Payment Pending',
+      body: `Your payment of $${loan.monthlyPayment.toLocaleString('en-US', { minimumFractionDigits: 2 })} for ${loan.name} is pending review.`,
+      type: 'loan',
+      icon: 'ti-receipt',
+      iconColor: '#22c55e',
+    });
+
+    res.json({ loan, transaction: txn });
   } catch (err) {
     next(err);
   }

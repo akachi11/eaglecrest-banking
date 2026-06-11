@@ -15,7 +15,30 @@ import notificationRoutes from './routes/notification.routes.js';
 
 const app = express();
 
-app.use(cors({ origin: process.env.CLIENT_URL || 'http://localhost:5173' }));
+const defaultOrigins = [
+  'http://localhost:5173',
+  'https://everestsave.org',
+  'https://www.everestsave.org',
+];
+
+const allowedOrigins = (process.env.CLIENT_URL ?? '')
+  .split(',')
+  .map(o => o.trim().replace(/\/$/, ''))
+  .filter(Boolean);
+
+for (const origin of defaultOrigins) {
+  if (!allowedOrigins.includes(origin)) allowedOrigins.push(origin);
+}
+
+const corsOptions = {
+  origin: (origin, cb) => {
+    if (!origin || allowedOrigins.includes(origin)) return cb(null, true);
+    cb(new Error(`CORS: origin ${origin} not allowed`));
+  },
+  credentials: true,
+};
+app.use(cors(corsOptions));
+app.options('*', cors(corsOptions));
 app.use(express.json());
 
 app.use('/api/auth', authRoutes);

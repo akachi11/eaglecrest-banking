@@ -25,9 +25,8 @@ export const sendTransfer = async (req, res, next) => {
     const recipient = await Recipient.findOne({ _id: recipientId, user: req.user._id }).session(session);
     if (!recipient) return res.status(404).json({ message: 'Recipient not found' });
 
-    account.balance -= amount;
-    await account.save({ session });
-
+    // Funds are not deducted yet — the transaction is created as 'pending'
+    // and the balance is only adjusted once an admin marks it complete.
     const txn = await Transaction.create(
       [
         {
@@ -37,7 +36,7 @@ export const sendTransfer = async (req, res, next) => {
           category: 'Transfer',
           amount,
           type: 'debit',
-          status: 'completed',
+          status: 'pending',
           date: new Date(),
           note,
           reference: generateRef(),
@@ -52,8 +51,8 @@ export const sendTransfer = async (req, res, next) => {
     await session.commitTransaction();
 
     await createNotification(req.user._id, {
-      title: 'Transfer Sent',
-      body: `$${Number(amount).toLocaleString('en-US', { minimumFractionDigits: 2 })} sent to ${recipient.name}${note ? ` · "${note}"` : ''}.`,
+      title: 'Transfer Pending',
+      body: `Your transfer of $${Number(amount).toLocaleString('en-US', { minimumFractionDigits: 2 })} to ${recipient.name}${note ? ` · "${note}"` : ''} is pending review.`,
       type: 'transfer',
       icon: 'ti-send',
       iconColor: '#5B9BD5',

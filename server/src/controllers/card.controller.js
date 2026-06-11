@@ -18,7 +18,7 @@ export const applyForCard = async (req, res, next) => {
 
     const {
       cardType = 'visa',
-      cardName = 'EagleCrest Card',
+      cardName = 'EverestSave Card',
       isVirtual = false,
       spendingLimit,
       color = '#C9A84C',
@@ -69,8 +69,17 @@ export const issueVirtualCard = async (req, res, next) => {
       cardName: req.body.cardName || 'Virtual Card',
       expiry,
       isVirtual: true,
-      status: 'active',
+      status: 'pending',
     });
+
+    await createNotification(req.user._id, {
+      title: 'Virtual Card Pending',
+      body: `Your virtual card request is pending review. We'll notify you once it's approved.`,
+      type: 'card',
+      icon: 'ti-credit-card',
+      iconColor: '#C9A84C',
+    });
+
     res.status(201).json({ card });
   } catch (err) {
     next(err);
