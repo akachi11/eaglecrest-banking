@@ -196,7 +196,7 @@ const SignUp: React.FC = () => {
               Application Submitted
             </h1>
             <p className="text-white/50 leading-relaxed mb-2">
-              Thank you, <strong className="text-white/80">{form.firstName}</strong>. Your ApexTrust account application has been received.
+              Thank you, <strong className="text-white/80">{form.firstName}</strong>. Your EverestSave account application has been received.
             </p>
             <p className="text-white/40 text-sm leading-relaxed">
               Our team will review your application and send a decision to <strong className="text-white/60">{form.email}</strong> within <strong className="text-white/60">1–2 business days</strong>. Once approved, you'll be able to sign in and access your account.
@@ -244,10 +244,13 @@ const SignUp: React.FC = () => {
         />
 
         {/* wordmark */}
-        <Link to="/" className="relative">
-          <span className="font-display text-2xl font-semibold tracking-[0.12em] text-[#C9A84C] select-none">
-            APEXTRUST BANK
-          </span>
+        <Link to="/" className="relative block">
+          <div className="flex items-center gap-2.5">
+            <img src="/favicon.svg" alt="" className="w-8 h-8 rounded-lg shrink-0" aria-hidden="true" />
+            <span className="font-display text-2xl font-semibold tracking-[0.12em] text-[#C9A84C] select-none">
+              EVERESTSAVE BANK
+            </span>
+          </div>
           <p className="text-xs text-white/30 tracking-[0.08em] mt-1">Private Banking</p>
         </Link>
 
@@ -293,9 +296,10 @@ const SignUp: React.FC = () => {
       <div className="flex-1 flex flex-col items-center justify-center px-6 py-12 overflow-y-auto">
         {/* mobile wordmark */}
         <div className="lg:hidden mb-8 text-center">
-          <Link to="/">
+          <Link to="/" className="inline-flex items-center justify-center gap-2.5">
+            <img src="/favicon.svg" alt="" className="w-7 h-7 rounded-lg shrink-0" aria-hidden="true" />
             <span className="font-display text-xl font-semibold tracking-[0.12em] text-[#C9A84C] select-none">
-              APEXTRUST BANK
+              EVERESTSAVE BANK
             </span>
           </Link>
           {/* mobile step dots */}
@@ -662,7 +666,7 @@ const SignUp: React.FC = () => {
                   className="mt-0.5 accent-[#C9A84C] w-4 h-4 shrink-0"
                 />
                 <span className="text-xs text-white/40 leading-relaxed">
-                  I confirm that all information provided is accurate. I authorise ApexTrust to verify my identity and run a soft credit check as part of the account opening process. I agree to the{' '}
+                  I confirm that all information provided is accurate. I authorise EverestSave to verify my identity and run a soft credit check as part of the account opening process. I agree to the{' '}
                   <span className="text-[#C9A84C]">Terms of Service</span> and{' '}
                   <span className="text-[#C9A84C]">Privacy Policy</span>.
                 </span>

@@ -80,7 +80,7 @@ export const LoanApplicationModal: React.FC<LoanApplicationModalProps> = ({
       const { loan } = await loanApi.apply(token, {
         name: purpose.trim() || `${selectedType.label} Loan`,
         type: selectedType.apiType,
-        lender: 'ApexTrust Private Lending',
+        lender: 'EverestSave Private Lending',
         principal: amount,
         rate,
         termMonths: term,
@@ -312,7 +312,7 @@ export const LoanApplicationModal: React.FC<LoanApplicationModalProps> = ({
                       className="mt-0.5 accent-[#c9a84c] w-4 h-4"
                     />
                     <span className="text-xs text-text-secondary">
-                      I authorise ApexTrust to review my credit and confirm that the information
+                      I authorise EverestSave to review my credit and confirm that the information
                       provided is accurate to the best of my knowledge.
                     </span>
                   </label>

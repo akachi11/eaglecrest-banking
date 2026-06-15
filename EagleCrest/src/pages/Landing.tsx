@@ -139,19 +139,19 @@ const testimonials = [
     name: 'Sarah Mitchell',
     role: 'Nursing student, Ohio',
     photo: img('1438761681033-6461ffad8d80', 200),
-    quote: "ApexTrust gave me a student loan with no origination fee and deferred payments until I graduate. Honestly the easiest financial decision I've made.",
+    quote: "EverestSave gave me a student loan with no origination fee and deferred payments until I graduate. Honestly the easiest financial decision I've made.",
   },
   {
     name: 'James Harrington',
     role: 'Homeowner, Texas',
     photo: img('1507003211169-0a1dd7228f2d', 200),
-    quote: "We closed on our first home with an ApexTrust mortgage. The rate was better than anything my credit union offered and the process was completely online.",
+    quote: "We closed on our first home with an EverestSave mortgage. The rate was better than anything my credit union offered and the process was completely online.",
   },
   {
     name: 'Brianna Cole',
     role: 'Small business owner, Georgia',
     photo: img('1573496359142-b8d87734a5a2', 200),
-    quote: "I got a $40,000 business loan in under a week. My boutique would not exist without ApexTrust. Straightforward, fast, and zero surprises.",
+    quote: "I got a $40,000 business loan in under a week. My boutique would not exist without EverestSave. Straightforward, fast, and zero surprises.",
   },
 ]
 
@@ -175,7 +175,7 @@ const MiniCard = ({ label, color, accentColor, network }: {
       style={{ background: `radial-gradient(circle, ${accentColor} 0%, transparent 70%)` }} />
     <div className="flex items-center justify-between relative">
       <div className="flex flex-col gap-0.5">
-        <span className="text-white/40 text-[10px] uppercase tracking-widest">ApexTrust</span>
+        <span className="text-white/40 text-[10px] uppercase tracking-widest">EverestSave</span>
         <span className="text-white font-medium text-sm">{label}</span>
       </div>
       <div className="w-8 h-8 rounded-full border-2 opacity-70" style={{ borderColor: accentColor }} />
@@ -216,23 +216,24 @@ const Landing = () => {
       {/* ── Navbar ─────────────────────────────────────────────────────────── */}
       <header className={`fixed top-0 inset-x-0 z-[100] transition-all duration-300 ${scrolled ? 'bg-[#0c0c0c]/95 backdrop-blur-sm border-b border-white/[0.07]' : 'bg-transparent'
         }`}>
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 h-14 sm:h-16 flex items-center justify-between gap-3">
-          <span className="font-display text-base sm:text-xl font-semibold tracking-[0.12em] text-[#C9A84C] select-none shrink-0">
-            APEXTRUST BANK
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 h-14 sm:h-16 flex items-center justify-between gap-2 sm:gap-3">
+          <span className="flex items-center gap-1.5 sm:gap-2 font-display text-[13px] sm:text-xl font-semibold tracking-[0.04em] sm:tracking-[0.12em] text-[#C9A84C] select-none min-w-0 shrink overflow-hidden whitespace-nowrap">
+            <img src="/favicon.svg" alt="" className="w-5 h-5 sm:w-7 sm:h-7 rounded-md shrink-0" aria-hidden="true" />
+            <span className="truncate">EVERESTSAVE BANK</span>
           </span>
-          <nav className="hidden md:flex items-center gap-7 text-sm text-white/60">
+          <nav className="hidden md:flex items-center gap-7 text-sm text-white/60 shrink-0">
             <a href="#features" className="hover:text-white transition-colors duration-150">Features</a>
             <a href="#loans" className="hover:text-white transition-colors duration-150">Loans</a>
             <a href="#accounts" className="hover:text-white transition-colors duration-150">Accounts</a>
             <a href="#cards" className="hover:text-white transition-colors duration-150">Cards</a>
           </nav>
-          <div className="flex items-center gap-2 shrink-0">
+          <div className="flex items-center gap-1 sm:gap-2 shrink-0">
             <Link to="/sign-in"
-              className="text-xs sm:text-sm font-medium text-white/70 hover:text-white transition-colors duration-150 px-3 sm:px-4 py-1.5 rounded-md hover:bg-white/[0.06] whitespace-nowrap">
+              className="text-xs sm:text-sm font-medium text-white/70 hover:text-white transition-colors duration-150 px-2 sm:px-4 py-1.5 rounded-md hover:bg-white/[0.06] whitespace-nowrap">
               Sign In
             </Link>
             <Link to="/sign-up"
-              className="text-xs sm:text-sm font-medium px-3 sm:px-4 py-1.5 sm:py-2 rounded-md bg-[#C9A84C] text-black hover:bg-[#d4b55c] transition-colors duration-150 whitespace-nowrap">
+              className="text-xs sm:text-sm font-medium px-2.5 sm:px-4 py-1.5 sm:py-2 rounded-md bg-[#C9A84C] text-black hover:bg-[#d4b55c] transition-colors duration-150 whitespace-nowrap">
               <span className="hidden sm:inline">Open Account</span>
               <span className="sm:hidden">Get Started</span>
             </Link>
@@ -335,7 +336,7 @@ const Landing = () => {
               Simple tools, powerful results
             </h2>
             <p className="text-[#555] mt-3 max-w-lg mx-auto text-sm sm:text-base">
-              Whether you're sending money to a friend or planning for retirement — ApexTrust has you covered.
+              Whether you're sending money to a friend or planning for retirement — EverestSave has you covered.
             </p>
           </div>
 
@@ -419,7 +420,7 @@ const Landing = () => {
               Pick the account that fits your life
             </h2>
             <p className="text-[#555] mt-3 max-w-md mx-auto text-sm sm:text-base">
-              From your first job to your first home — there's an ApexTrust account that grows with you.
+              From your first job to your first home — there's an EverestSave account that grows with you.
             </p>
           </div>
 
@@ -578,8 +579,9 @@ const Landing = () => {
       <footer className="bg-[#080808] border-t border-white/[0.06] py-10 px-6">
         <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
           <div>
-            <span className="font-display text-lg font-semibold tracking-[0.12em] text-[#C9A84C] select-none">
-              APEXTRUST BANK
+            <span className="flex items-center gap-2 font-display text-lg font-semibold tracking-[0.12em] text-[#C9A84C] select-none">
+              <img src="/favicon.svg" alt="" className="w-6 h-6 rounded-md shrink-0" aria-hidden="true" />
+              EVERESTSAVE BANK
             </span>
             <p className="text-[11px] text-white/25 mt-1">Member FDIC · Equal Housing Lender</p>
           </div>
@@ -588,7 +590,7 @@ const Landing = () => {
             <span className="hover:text-white/60 cursor-pointer transition-colors duration-150">Terms of Service</span>
             <span className="hover:text-white/60 cursor-pointer transition-colors duration-150">Contact Us</span>
           </div>
-          <p className="text-[11px] text-white/20">© {new Date().getFullYear()} ApexTrust Bank</p>
+          <p className="text-[11px] text-white/20">© {new Date().getFullYear()} EverestSave Bank</p>
         </div>
       </footer>
       <LiveChat />

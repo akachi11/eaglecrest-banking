@@ -272,7 +272,7 @@ const Transfer = () => {
             <CardHeader title="From Account" />
             <div className="flex items-center justify-between p-4 rounded-lg bg-bg-elevated border border-border">
               <div>
-                <p className="text-xs text-text-muted">ApexTrust Private Account</p>
+                <p className="text-xs text-text-muted">EverestSave Private Account</p>
                 <p className="font-mono text-sm text-text-secondary mt-1">
                   •••• {account?.number ?? '——'}
                 </p>

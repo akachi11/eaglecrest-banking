@@ -32,7 +32,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ open = false, onClose }) => {
 
   const initials = user?.name
     ? user.name.split(' ').map((w) => w[0]).join('').slice(0, 2).toUpperCase()
-    : 'EC';
+    : 'ES';
 
   const displayName = user?.name
     ? user.name.split(' ')[0] + (user.name.split(' ')[1] ? ' ' + user.name.split(' ')[1][0] + '.' : '')

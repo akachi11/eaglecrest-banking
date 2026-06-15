@@ -44,9 +44,12 @@ const SignIn: React.FC = () => {
 
         {/* wordmark */}
         <div className="relative">
-          <span className="font-display text-2xl font-semibold tracking-[0.12em] text-gold select-none">
-            APEXTRUST BANK
-          </span>
+          <div className="flex items-center gap-2.5">
+            <img src="/favicon.svg" alt="" className="w-8 h-8 rounded-lg shrink-0" aria-hidden="true" />
+            <span className="font-display text-2xl font-semibold tracking-[0.12em] text-gold select-none">
+              EVERESTSAVE BANK
+            </span>
+          </div>
           <p className="text-xs text-text-muted tracking-[0.08em] mt-1">Private Banking</p>
         </div>
 
@@ -57,7 +60,7 @@ const SignIn: React.FC = () => {
             Your wealth,<br />managed with<br />precision.
           </p>
           <p className="text-sm text-text-secondary mt-5 leading-relaxed max-w-xs">
-            ApexTrust gives you a complete view of your finances — accounts, cards, loans, and
+            EverestSave gives you a complete view of your finances — accounts, cards, loans, and
             savings goals — all in one place.
           </p>
         </div>
@@ -72,9 +75,12 @@ const SignIn: React.FC = () => {
       <div className="flex-1 flex flex-col items-center justify-center px-6 py-12">
         {/* mobile wordmark */}
         <div className="lg:hidden mb-10 text-center">
-          <span className="font-display text-xl font-semibold tracking-[0.12em] text-gold select-none">
-            APEXTRUST BANK
-          </span>
+          <div className="flex items-center justify-center gap-2.5">
+            <img src="/favicon.svg" alt="" className="w-7 h-7 rounded-lg shrink-0" aria-hidden="true" />
+            <span className="font-display text-xl font-semibold tracking-[0.12em] text-gold select-none">
+              EVERESTSAVE BANK
+            </span>
+          </div>
           <p className="text-xs text-text-muted tracking-[0.06em] mt-0.5">Private Banking</p>
         </div>
 

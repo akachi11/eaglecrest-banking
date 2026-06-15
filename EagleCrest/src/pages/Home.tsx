@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Avatar, Badge, Button, Card, CardHeader, StatCard } from '../components'
 import { useBanking } from '../context/BankingContext'
@@ -41,6 +42,28 @@ const Home = () => {
   const { user } = useAuth()
   const { account, recentTransactions, cashFlow, spending, loading } = useBanking()
   const navigate = useNavigate()
+  const [hideBalance, setHideBalance] = useState(() => localStorage.getItem('hideBalance') === 'true')
+
+  const toggleHideBalance = () => {
+    setHideBalance((prev) => {
+      const next = !prev
+      localStorage.setItem('hideBalance', String(next))
+      return next
+    })
+  }
+
+  const maskedCurrency = (n: number) => (hideBalance ? '••••••' : currency(n))
+
+  const HideBalanceToggle = ({ className = '' }: { className?: string }) => (
+    <button
+      type="button"
+      onClick={toggleHideBalance}
+      aria-label={hideBalance ? 'Show balance' : 'Hide balance'}
+      className={`text-text-muted hover:text-gold transition-colors duration-150 cursor-pointer ${className}`}
+    >
+      <i className={`ti ${hideBalance ? 'ti-eye-off' : 'ti-eye'}`} style={{ fontSize: 16 }} aria-hidden="true" />
+    </button>
+  )
 
   const hour = new Date().getHours()
   const greeting = hour < 12 ? 'Good morning' : hour < 17 ? 'Good afternoon' : 'Good evening'
@@ -60,7 +83,7 @@ const Home = () => {
 
   const initials = user?.name
     ? user.name.split(' ').map((w) => w[0]).join('').slice(0, 2).toUpperCase()
-    : 'EC'
+    : 'ES'
 
   if (loading) {
     return (
@@ -74,15 +97,16 @@ const Home = () => {
     <div className="flex flex-col gap-6 max-w-[1400px] mx-auto">
       {/* Header */}
       <div className="flex items-center justify-between flex-wrap gap-4">
-        <div>
-          <h1 className="font-display text-2xl font-medium text-text-primary">
+        <div className="min-w-0">
+          <h1 className="font-display text-2xl font-medium text-text-primary truncate">
             {greeting}, {firstName}
           </h1>
           <p className="text-sm text-text-secondary mt-1">{todayLabel} · Here&apos;s your financial overview</p>
         </div>
-        <div className="flex items-center gap-3">
-          <Button className="px-10" variant="ghost" icon="ti-plus" size="md" onClick={() => navigate('/transfer')}>
-            Add Money
+        <div className="flex items-center gap-2 sm:gap-3">
+          <Button className="px-5 sm:px-10" variant="ghost" icon="ti-plus" size="md" onClick={() => navigate('/transfer')}>
+            <span className="hidden sm:inline">Add Money</span>
+            <span className="sm:hidden">Add</span>
           </Button>
           <Button variant="primary" icon="ti-send" size="md" onClick={() => navigate('/transfer')}>
             Send
@@ -94,10 +118,11 @@ const Home = () => {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <StatCard
           label="Total Balance"
-          value={account ? currency(account.balance) : '—'}
+          value={account ? maskedCurrency(account.balance) : '—'}
           delta="Available balance"
           deltaUp
           icon="ti-wallet"
+          valueAction={account ? <HideBalanceToggle /> : undefined}
         />
         <StatCard
           label="Income"
@@ -128,25 +153,28 @@ const Home = () => {
         <div className="xl:col-span-2 flex flex-col gap-6">
           {/* Card visual */}
           {account && (
-            <div className="relative overflow-hidden rounded-xl bg-gradient-to-br from-[#1c1a14] via-[#161616] to-[#0f0f0f] border border-border p-6 h-[200px] flex flex-col justify-between">
+            <div className="relative overflow-hidden rounded-xl bg-gradient-to-br from-[#1c1a14] via-[#161616] to-[#0f0f0f] border border-border p-4 sm:p-6 min-h-[200px] flex flex-col justify-between gap-4">
               <div
                 className="pointer-events-none absolute -right-16 -top-16 w-64 h-64 rounded-full opacity-[0.12]"
                 style={{ background: 'radial-gradient(circle, var(--color-gold) 0%, transparent 70%)' }}
               />
-              <div className="flex items-start justify-between relative">
-                <div>
-                  <p className="text-[11px] uppercase tracking-[0.16em] text-text-muted">
-                    ApexTrust Private Account
+              <div className="flex items-start justify-between gap-3 relative">
+                <div className="min-w-0">
+                  <p className="text-[11px] uppercase tracking-[0.16em] text-text-muted truncate">
+                    EverestSave Private Account
                   </p>
-                  <p className="font-display text-lg text-text-primary mt-1">{user?.name}</p>
+                  <p className="font-display text-lg text-text-primary mt-1 truncate">{user?.name}</p>
                 </div>
-                <i className="ti ti-cards text-gold text-2xl" aria-hidden="true" />
+                <i className="ti ti-cards text-gold text-2xl shrink-0" aria-hidden="true" />
               </div>
               <div className="relative">
                 <p className="text-[11px] uppercase tracking-[0.16em] text-text-muted mb-1">Available Balance</p>
-                <p className="font-display text-3xl font-medium text-text-primary">
-                  {currency(account.balance)}
-                </p>
+                <div className="flex items-center gap-2">
+                  <p className="font-display text-3xl font-medium text-text-primary">
+                    {maskedCurrency(account.balance)}
+                  </p>
+                  <HideBalanceToggle />
+                </div>
               </div>
               <div className="flex items-end justify-between relative">
                 <div>

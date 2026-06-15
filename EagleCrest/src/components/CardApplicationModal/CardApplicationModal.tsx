@@ -68,7 +68,7 @@ const CardPreview: React.FC<{
   >
     <div className="flex items-center justify-between">
       <span className="text-white/60 text-[10px] uppercase tracking-widest font-mono">
-        {isVirtual ? 'Virtual' : 'ApexTrust'}
+        {isVirtual ? 'Virtual' : 'EverestSave'}
       </span>
       <span className="text-white/80 text-xs font-medium">{label}</span>
     </div>
@@ -396,7 +396,7 @@ export const CardApplicationModal: React.FC<CardApplicationModalProps> = ({
                     ))}
                   </div>
                   <p className="text-xs text-text-muted leading-relaxed">
-                    By submitting you authorise ApexTrust to process your card application. Subject to credit approval.
+                    By submitting you authorise EverestSave to process your card application. Subject to credit approval.
                   </p>
                 </div>
               )}

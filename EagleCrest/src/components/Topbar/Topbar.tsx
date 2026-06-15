@@ -29,7 +29,7 @@ export const Topbar: React.FC<TopbarProps> = ({ onMenuClick }) => {
 
   const initials = user?.name
     ? user.name.split(' ').map((w) => w[0]).join('').slice(0, 2).toUpperCase()
-    : 'EC'
+    : 'ES'
 
   // close on outside click
   useEffect(() => {
@@ -44,16 +44,17 @@ export const Topbar: React.FC<TopbarProps> = ({ onMenuClick }) => {
   }, [open])
 
   return (
-    <header className="flex items-center justify-between gap-3 px-4 sm:px-6 h-[54px] bg-bg-card border-b border-border shrink-0 sticky top-0 z-[100]">
-      <div className="flex items-center gap-3 min-w-0">
+    <header className="flex items-center justify-between gap-2 sm:gap-3 px-3 sm:px-6 h-[54px] bg-bg-card border-b border-border shrink-0 sticky top-0 z-[100]">
+      <div className="flex items-center gap-2 sm:gap-3 min-w-0">
         <button className={`${iconBtn} lg:hidden`} aria-label="Open navigation" onClick={onMenuClick}>
           <i className="ti ti-menu-2" style={{ fontSize: 18 }} aria-hidden="true" />
         </button>
         <div
-          className="font-display text-lg font-semibold text-gold tracking-[0.06em] select-none truncate"
-          aria-label="ApexTrust Bank"
+          className="flex items-center gap-1.5 sm:gap-2 min-w-0 font-display text-sm sm:text-lg font-semibold text-gold tracking-[0.04em] sm:tracking-[0.06em] select-none"
+          aria-label="EverestSave Bank"
         >
-          APEXTRUST BANK
+          <img src="/favicon.svg" alt="" className="w-5 h-5 sm:w-6 sm:h-6 rounded-md shrink-0" aria-hidden="true" />
+          <span className="truncate">EVERESTSAVE BANK</span>
         </div>
       </div>
 
@@ -69,7 +70,7 @@ export const Topbar: React.FC<TopbarProps> = ({ onMenuClick }) => {
           </button>
 
           {open && (
-            <div className="absolute right-0 top-[calc(100%+8px)] w-[340px] max-h-[480px] bg-bg-card border border-border rounded-xl shadow-2xl flex flex-col overflow-hidden z-[200]">
+            <div className="absolute right-0 top-[calc(100%+8px)] w-[min(340px,calc(100vw-1.5rem))] max-h-[480px] bg-bg-card border border-border rounded-xl shadow-2xl flex flex-col overflow-hidden z-[200]">
               {/* panel header */}
               <div className="flex items-center justify-between px-4 py-3 border-b border-border shrink-0">
                 <div className="flex items-center gap-2">

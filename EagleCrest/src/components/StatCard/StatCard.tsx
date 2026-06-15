@@ -7,6 +7,7 @@ interface StatCardProps {
     delta: string;
     deltaUp?: boolean;
     icon: string;
+    valueAction?: React.ReactNode;
 }
 
 export const StatCard: React.FC<StatCardProps> = ({
@@ -15,6 +16,7 @@ export const StatCard: React.FC<StatCardProps> = ({
     delta,
     deltaUp = true,
     icon,
+    valueAction,
 }) => (
     <Card hoverable>
         <div className="flex items-center justify-between mb-3">
@@ -23,7 +25,10 @@ export const StatCard: React.FC<StatCardProps> = ({
                 <i className={`ti ${icon}`} style={{ fontSize: 13 }} aria-hidden="true" />
             </div>
         </div>
-        <div className="text-2xl font-display font-medium text-text-primary mb-2">{value}</div>
+        <div className="flex items-center gap-2 mb-2">
+            <span className="text-2xl font-display font-medium text-text-primary">{value}</span>
+            {valueAction}
+        </div>
         <div className={`inline-flex items-center gap-1 text-xs font-medium ${deltaUp ? 'text-success' : 'text-danger'}`}>
             <i
                 className={`ti ${deltaUp ? 'ti-trending-up' : 'ti-trending-down'}`}
