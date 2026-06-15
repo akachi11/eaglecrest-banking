@@ -58,13 +58,15 @@ export const approveApplication = async (req, res, next) => {
     user.status = 'active';
     await user.save();
 
+    const { balance } = req.body;
+
     // Create the primary account when approved
     const accountNumber = Math.floor(1000000000 + Math.random() * 9000000000).toString();
     await Account.create({
       user: user._id,
       number: accountNumber,
       type: user.accountType || 'private',
-      balance: 0,
+      balance: balance ? Number(balance) : 0,
       cardExpiry: `${String(new Date().getMonth() + 1).padStart(2, '0')}/${new Date().getFullYear() + 4 - 2000}`,
     });
 
