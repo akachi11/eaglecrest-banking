@@ -89,6 +89,7 @@ const Transfer = () => {
   const [amount, setAmount] = useState('')
   const [note, setNote] = useState('')
   const [sent, setSent] = useState(false)
+  const [sentAmount, setSentAmount] = useState(0)
   const [sendLoading, setSendLoading] = useState(false)
   const [sendError, setSendError] = useState('')
   const [showAddModal, setShowAddModal] = useState(false)
@@ -118,6 +119,7 @@ const Transfer = () => {
       await transferApi.send(token, selected._id, numericAmount, note || undefined)
       await refreshAccount()
       refreshNotifications()
+      setSentAmount(numericAmount)
       setSent(true)
       setAmount('')
       setNote('')
@@ -325,7 +327,7 @@ const Transfer = () => {
           <Card padding="md" className="flex items-center gap-3 shadow-lg">
             <Badge variant="success" dot>Sent</Badge>
             <span className="text-sm text-text-primary">
-              {currency(numericAmount)} sent to {selected?.name}
+              {currency(sentAmount)} sent to {selected?.name}
             </span>
           </Card>
         </div>

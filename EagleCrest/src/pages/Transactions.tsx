@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
-import { Badge, Button, Card, Input } from '../components'
+import { Badge, Button, Card, Input, TransactionReceiptModal } from '../components'
 import { transactionApi, type ApiTransaction } from '../lib/api'
 import { useAuth } from '../context/AuthContext'
 import type { TransactionStatus, TransactionType } from '../types'
@@ -42,6 +42,7 @@ const Transactions = () => {
   const [loading, setLoading] = useState(true)
   const [search, setSearch] = useState('')
   const [typeFilter, setTypeFilter] = useState<TypeFilter>('all')
+  const [receiptTxn, setReceiptTxn] = useState<ApiTransaction | null>(null)
 
   useEffect(() => {
     if (!token) return
@@ -141,7 +142,8 @@ const Transactions = () => {
                 {txns.map((txn) => (
                   <div
                     key={txn._id}
-                    className="flex items-center justify-between py-3 border-b border-border last:border-b-0 gap-4"
+                    onClick={() => setReceiptTxn(txn)}
+                    className="flex items-center justify-between py-3 border-b border-border last:border-b-0 gap-4 cursor-pointer hover:bg-bg-elevated/50 rounded-md transition-colors duration-150 px-2 -mx-2"
                   >
                     <div className="flex items-center gap-3 min-w-0">
                       <div
@@ -177,10 +179,14 @@ const Transactions = () => {
                         {currency(txn.amount)}
                       </span>
                       <button
+                        onClick={(e) => {
+                          e.stopPropagation()
+                          setReceiptTxn(txn)
+                        }}
                         className="w-8 h-8 rounded-md flex items-center justify-center text-text-muted hover:text-gold hover:bg-bg-elevated transition-colors duration-150"
-                        aria-label="Transaction options"
+                        aria-label="View receipt"
                       >
-                        <i className="ti ti-dots-vertical" style={{ fontSize: 16 }} aria-hidden="true" />
+                        <i className="ti ti-receipt" style={{ fontSize: 16 }} aria-hidden="true" />
                       </button>
                     </div>
                   </div>
@@ -190,6 +196,8 @@ const Transactions = () => {
           ))
         )}
       </Card>
+
+      <TransactionReceiptModal transaction={receiptTxn} onClose={() => setReceiptTxn(null)} />
     </div>
   )
 }
