@@ -34,17 +34,17 @@ const run = async () => {
     {
       account: account._id,
       user: USER_ID,
-      name: 'Wire Transfer Deposit',
+      name: 'Wire Transfer Sent',
       category: 'Transfer',
       amount: randomBetween(150000, 200000),
-      type: 'credit',
+      type: 'debit',
       status: 'completed',
       date: daysAgo(730),
-      note: 'Incoming wire transfer',
+      note: 'Outgoing wire transfer',
       reference: generateRef(),
-      icon: 'ti-arrow-down-left',
-      iconBg: 'rgba(91,155,213,0.12)',
-      iconColor: '#5B9BD5',
+      icon: 'ti-arrow-up-right',
+      iconBg: 'rgba(201,168,76,0.12)',
+      iconColor: '#C9A84C',
     },
     {
       account: account._id,
@@ -64,17 +64,17 @@ const run = async () => {
     {
       account: account._id,
       user: USER_ID,
-      name: 'Business Settlement',
+      name: 'Business Settlement Sent',
       category: 'Transfer',
       amount: randomBetween(150000, 200000),
-      type: 'credit',
+      type: 'debit',
       status: 'completed',
       date: daysAgo(200),
-      note: 'Settlement from business partner',
+      note: 'Settlement to business partner',
       reference: generateRef(),
-      icon: 'ti-arrow-down-left',
-      iconBg: 'rgba(91,155,213,0.12)',
-      iconColor: '#5B9BD5',
+      icon: 'ti-arrow-up-right',
+      iconBg: 'rgba(201,168,76,0.12)',
+      iconColor: '#C9A84C',
     },
     {
       account: account._id,
@@ -85,7 +85,7 @@ const run = async () => {
       type: 'credit',
       status: 'completed',
       date: daysFromNow(1),
-      note: 'Investment returns',
+      note: 'Investment return',
       reference: generateRef(),
       icon: 'ti-arrow-down-left',
       iconBg: 'rgba(91,155,213,0.12)',
@@ -98,12 +98,7 @@ const run = async () => {
     console.log(`${t.date.toISOString()} | ${t.name} | ${t.type} $${t.amount.toLocaleString()} | ${t.status}`)
   );
 
-  const total = created.reduce(
-    (sum, t) => sum + (t.type === 'credit' ? t.amount : -t.amount),
-    0
-  );
-
-  account.balance = total;
+  account.balance = 30000000;
   await account.save();
   console.log('New balance:', account.balance);
 

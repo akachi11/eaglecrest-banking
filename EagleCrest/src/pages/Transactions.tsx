@@ -165,15 +165,15 @@ const Transactions = () => {
                         <p className="text-xs text-text-muted truncate">
                           {txn.category} · {timeLabel(txn.date)}
                         </p>
-                        <Badge variant={statusVariant[txn.status]} className="sm:hidden mt-1">
-                          {txn.status}
-                        </Badge>
+                        <div className="sm:hidden mt-1">
+                          <Badge variant={statusVariant[txn.status]}>{txn.status}</Badge>
+                        </div>
                       </div>
                     </div>
                     <div className="flex items-center gap-1 sm:gap-4 shrink-0">
-                      <Badge variant={statusVariant[txn.status]} className="hidden sm:inline-flex">
-                        {txn.status}
-                      </Badge>
+                      <div className="hidden sm:block">
+                        <Badge variant={statusVariant[txn.status]}>{txn.status}</Badge>
+                      </div>
                       <span
                         className={`text-xs sm:text-sm font-medium font-mono text-right whitespace-nowrap sm:w-28 ${
                           txn.type === 'credit' ? 'text-success' : 'text-text-primary'
