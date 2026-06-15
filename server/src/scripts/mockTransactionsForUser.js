@@ -7,12 +7,6 @@ const USER_ID = '6a300174dc4fcdfb48179aa6';
 
 const generateRef = () => `TXN-${Date.now()}-${Math.random().toString(36).slice(2, 7).toUpperCase()}`;
 
-const daysAgo = (days) => {
-  const d = new Date();
-  d.setDate(d.getDate() - days);
-  return d;
-};
-
 const daysFromNow = (days) => {
   const d = new Date();
   d.setDate(d.getDate() + days);
@@ -39,7 +33,7 @@ const run = async () => {
       amount: randomBetween(150000, 200000),
       type: 'debit',
       status: 'completed',
-      date: daysAgo(730),
+      date: new Date('2024-02-15T14:00:00Z'),
       note: 'Outgoing wire transfer',
       reference: generateRef(),
       icon: 'ti-arrow-up-right',
@@ -49,13 +43,13 @@ const run = async () => {
     {
       account: account._id,
       user: USER_ID,
-      name: 'Property Purchase',
+      name: 'Equipment Purchase',
       category: 'Transfer',
       amount: randomBetween(150000, 200000),
       type: 'debit',
       status: 'completed',
-      date: daysAgo(450),
-      note: 'Payment for real estate acquisition',
+      date: new Date('2024-06-20T14:00:00Z'),
+      note: 'Payment for equipment acquisition',
       reference: generateRef(),
       icon: 'ti-arrow-up-right',
       iconBg: 'rgba(201,168,76,0.12)',
@@ -69,7 +63,7 @@ const run = async () => {
       amount: randomBetween(150000, 200000),
       type: 'debit',
       status: 'completed',
-      date: daysAgo(200),
+      date: new Date('2024-11-05T14:00:00Z'),
       note: 'Settlement to business partner',
       reference: generateRef(),
       icon: 'ti-arrow-up-right',
