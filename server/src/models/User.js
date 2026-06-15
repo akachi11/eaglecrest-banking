@@ -39,13 +39,18 @@ const userSchema = new mongoose.Schema(
       annualIncome: { type: Number },
     },
     accountType: { type: String, enum: ['checking', 'savings', 'private'], default: 'private' },
+    transactionPin: { type: String },
   },
   { timestamps: true }
 );
 
 userSchema.pre('save', async function (next) {
-  if (!this.isModified('password')) return next();
-  this.password = await bcrypt.hash(this.password, 12);
+  if (this.isModified('password')) {
+    this.password = await bcrypt.hash(this.password, 12);
+  }
+  if (this.isModified('transactionPin') && this.transactionPin) {
+    this.transactionPin = await bcrypt.hash(this.transactionPin, 12);
+  }
   next();
 });
 
@@ -53,10 +58,16 @@ userSchema.methods.comparePassword = function (candidate) {
   return bcrypt.compare(candidate, this.password);
 };
 
+userSchema.methods.comparePin = function (candidate) {
+  return bcrypt.compare(candidate, this.transactionPin);
+};
+
 userSchema.methods.toJSON = function () {
   const obj = this.toObject();
   delete obj.password;
   delete obj.ssnLast4;
+  obj.hasTransactionPin = !!obj.transactionPin;
+  delete obj.transactionPin;
   return obj;
 };
 

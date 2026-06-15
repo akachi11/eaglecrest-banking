@@ -2,6 +2,7 @@ import mongoose from 'mongoose';
 import Account from '../models/Account.js';
 import Transaction from '../models/Transaction.js';
 import Recipient from '../models/Recipient.js';
+import User from '../models/User.js';
 import { createNotification } from './notification.controller.js';
 
 const generateRef = () => `TXN-${Date.now()}-${Math.random().toString(36).slice(2, 7).toUpperCase()}`;
@@ -10,10 +11,18 @@ export const sendTransfer = async (req, res, next) => {
   const session = await mongoose.startSession();
   session.startTransaction();
   try {
-    const { recipientId, amount, note } = req.body;
+    const { recipientId, amount, note, pin } = req.body;
 
     if (amount <= 0) {
       return res.status(400).json({ message: 'Amount must be greater than zero' });
+    }
+
+    const requester = await User.findById(req.user._id).session(session);
+    if (!requester.transactionPin) {
+      return res.status(428).json({ message: 'Transaction PIN required', code: 'PIN_REQUIRED' });
+    }
+    if (!pin || !(await requester.comparePin(pin))) {
+      return res.status(401).json({ message: 'Incorrect transaction PIN', code: 'PIN_INVALID' });
     }
 
     const account = await Account.findOne({ user: req.user._id, isActive: true }).session(session);

@@ -24,7 +24,7 @@ const loanStories = [
     max: 'Up to $100K',
     headline: 'Fund your future',
     desc: 'Affordable student loans with flexible repayment — deferred until after graduation.',
-    photo: img('1523050854058-8df90110c9f1', 600),
+    photo: img('1523240795612-9a054b0db644', 600),
     photoBg: '#1a1610',
     tag: 'Student Loans',
     tagColor: '#f59e0b',

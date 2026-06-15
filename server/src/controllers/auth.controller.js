@@ -135,6 +135,23 @@ export const updatePreferences = async (req, res, next) => {
   }
 };
 
+export const setTransactionPin = async (req, res, next) => {
+  try {
+    const { pin } = req.body;
+    if (!/^\d{4}$/.test(pin)) {
+      return res.status(400).json({ message: 'PIN must be exactly 4 digits' });
+    }
+
+    const user = await User.findById(req.user._id);
+    user.transactionPin = pin;
+    await user.save();
+
+    res.json({ message: 'Transaction PIN set successfully', user });
+  } catch (err) {
+    next(err);
+  }
+};
+
 export const changePassword = async (req, res, next) => {
   try {
     const { currentPassword, newPassword } = req.body;

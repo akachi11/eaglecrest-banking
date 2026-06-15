@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
-import { Avatar, Badge, Button, Card, CardHeader, Input } from '../components'
+import { Avatar, Badge, Button, Card, CardHeader, Input, TransactionPinModal } from '../components'
 import { transferApi, type ApiRecipient } from '../lib/api'
 import { useAuth } from '../context/AuthContext'
 import { useBanking } from '../context/BankingContext'
@@ -79,7 +79,7 @@ const AddRecipientModal: React.FC<AddRecipientModalProps> = ({ onClose, onAdded,
 
 // ── Main page ─────────────────────────────────────────────────────────────────
 const Transfer = () => {
-  const { token } = useAuth()
+  const { token, user } = useAuth()
   const { account, refreshAccount } = useBanking()
   const { refreshNotifications } = useNotifications()
 
@@ -93,6 +93,7 @@ const Transfer = () => {
   const [sendLoading, setSendLoading] = useState(false)
   const [sendError, setSendError] = useState('')
   const [showAddModal, setShowAddModal] = useState(false)
+  const [pinModalMode, setPinModalMode] = useState<'create' | 'enter' | null>(null)
 
   useEffect(() => {
     if (!token) return
@@ -111,21 +112,29 @@ const Transfer = () => {
   const insufficient = numericAmount > balance
   const canSend = !!selected && numericAmount > 0 && !insufficient && !sendLoading
 
-  const handleSend = async () => {
-    if (!canSend || !token || !selected) return
+  const handleSendClick = () => {
+    if (!canSend) return
+    setSendError('')
+    setPinModalMode(user?.hasTransactionPin ? 'enter' : 'create')
+  }
+
+  const handlePinConfirmed = async (pin: string) => {
+    if (!token || !selected) return
     setSendError('')
     setSendLoading(true)
     try {
-      await transferApi.send(token, selected._id, numericAmount, note || undefined)
+      await transferApi.send(token, selected._id, numericAmount, pin, note || undefined)
       await refreshAccount()
       refreshNotifications()
       setSentAmount(numericAmount)
       setSent(true)
       setAmount('')
       setNote('')
+      setPinModalMode(null)
       setTimeout(() => setSent(false), 2400)
     } catch (err) {
       setSendError(err instanceof Error ? err.message : 'Transfer failed')
+      setPinModalMode(null)
     } finally {
       setSendLoading(false)
     }
@@ -260,7 +269,7 @@ const Transfer = () => {
                 fullWidth
                 disabled={!canSend}
                 loading={sendLoading}
-                onClick={handleSend}
+                onClick={handleSendClick}
               >
                 {sent ? 'Transfer Pending' : 'Send Transfer'}
               </Button>
@@ -338,6 +347,14 @@ const Transfer = () => {
           token={token}
           onClose={() => setShowAddModal(false)}
           onAdded={handleRecipientAdded}
+        />
+      )}
+
+      {pinModalMode && (
+        <TransactionPinModal
+          mode={pinModalMode}
+          onClose={() => setPinModalMode(null)}
+          onSuccess={handlePinConfirmed}
         />
       )}
     </div>

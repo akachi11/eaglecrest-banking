@@ -64,6 +64,7 @@ export interface ApiUser {
   phone?: string;
   memberSince: string;
   status: 'pending' | 'active' | 'suspended' | 'closed';
+  hasTransactionPin?: boolean;
   preferences: {
     currency: string;
     twoFactor: boolean;
@@ -191,6 +192,9 @@ export const authApi = {
 
   changePassword: (token: string, currentPassword: string, newPassword: string) =>
     patch<{ message: string }>('/auth/me/password', { currentPassword, newPassword }, token),
+
+  setTransactionPin: (token: string, pin: string) =>
+    patch<{ message: string; user: ApiUser }>('/auth/me/pin', { pin }, token),
 };
 
 // ─── accounts ────────────────────────────────────────────────────────────────
@@ -227,10 +231,10 @@ export const transactionApi = {
 // ─── transfers ───────────────────────────────────────────────────────────────
 
 export const transferApi = {
-  send: (token: string, recipientId: string, amount: number, note?: string) =>
+  send: (token: string, recipientId: string, amount: number, pin: string, note?: string) =>
     post<{ transaction: ApiTransaction; balance: number }>(
       '/transfers/send',
-      { recipientId, amount, note },
+      { recipientId, amount, pin, note },
       token,
     ),
 

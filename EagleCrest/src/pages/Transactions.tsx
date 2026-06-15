@@ -86,14 +86,15 @@ const Transactions = () => {
             {loading ? 'Loading…' : `${filtered.length} transactions · ${currency(totalIn)} in · ${currency(totalOut)} out`}
           </p>
         </div>
-        <div className="flex items-center gap-3">
-          <Button variant="ghost" icon="ti-download">Export</Button>
+        <div className="flex items-center gap-3 shrink-0">
+          <Button variant="ghost" icon="ti-download" className="hidden sm:inline-flex">Export</Button>
+          <Button variant="ghost" icon="ti-download" className="sm:hidden" aria-label="Export" />
           <Button variant="primary" icon="ti-filter">Filter</Button>
         </div>
       </div>
 
       {/* Search & filters */}
-      <div className="flex items-center gap-3 flex-wrap">
+      <div className="flex flex-col sm:flex-row sm:items-center gap-3">
         <div className="w-full sm:w-80">
           <Input
             placeholder="Search by name or category..."
@@ -102,12 +103,12 @@ const Transactions = () => {
             onChange={(e) => setSearch(e.target.value)}
           />
         </div>
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 overflow-x-auto -mx-1 px-1 sm:mx-0 sm:px-0">
           {typeFilters.map((f) => (
             <button
               key={f.value}
               onClick={() => setTypeFilter(f.value)}
-              className={`text-xs font-medium px-4 py-2 rounded-md border transition-colors duration-150 ${
+              className={`text-xs font-medium px-4 py-2 rounded-md border whitespace-nowrap shrink-0 transition-colors duration-150 ${
                 typeFilter === f.value
                   ? 'bg-gold/[0.12] border-gold/40 text-gold'
                   : 'bg-bg-elevated border-border text-text-secondary hover:text-text-primary hover:border-border-strong'
@@ -120,7 +121,7 @@ const Transactions = () => {
       </div>
 
       {/* Transaction groups */}
-      <Card padding="lg">
+      <Card padding="sm" className="sm:p-6">
         {loading ? (
           <div className="flex items-center justify-center py-16">
             <i className="ti ti-loader-2 animate-spin text-gold text-2xl" aria-hidden="true" />
@@ -143,11 +144,11 @@ const Transactions = () => {
                   <div
                     key={txn._id}
                     onClick={() => setReceiptTxn(txn)}
-                    className="flex items-center justify-between py-3 border-b border-border last:border-b-0 gap-4 cursor-pointer hover:bg-bg-elevated/50 rounded-md transition-colors duration-150 px-2 -mx-2"
+                    className="flex items-center justify-between py-3 border-b border-border last:border-b-0 gap-2 sm:gap-4 cursor-pointer hover:bg-bg-elevated/50 rounded-md transition-colors duration-150 px-2 -mx-2"
                   >
-                    <div className="flex items-center gap-3 min-w-0">
+                    <div className="flex items-center gap-2 sm:gap-3 min-w-0">
                       <div
-                        className="w-11 h-11 rounded-full flex items-center justify-center shrink-0"
+                        className="w-9 h-9 sm:w-11 sm:h-11 rounded-full flex items-center justify-center shrink-0"
                         style={{
                           background: txn.iconBg ?? 'rgba(201,168,76,0.12)',
                           color: txn.iconColor ?? '#C9A84C',
@@ -161,17 +162,20 @@ const Transactions = () => {
                       </div>
                       <div className="min-w-0">
                         <p className="text-sm text-text-primary font-medium truncate">{txn.name}</p>
-                        <p className="text-xs text-text-muted">
+                        <p className="text-xs text-text-muted truncate">
                           {txn.category} · {timeLabel(txn.date)}
                         </p>
+                        <Badge variant={statusVariant[txn.status]} className="sm:hidden mt-1">
+                          {txn.status}
+                        </Badge>
                       </div>
                     </div>
-                    <div className="flex items-center gap-4 shrink-0">
+                    <div className="flex items-center gap-1 sm:gap-4 shrink-0">
                       <Badge variant={statusVariant[txn.status]} className="hidden sm:inline-flex">
                         {txn.status}
                       </Badge>
                       <span
-                        className={`text-sm font-medium font-mono w-28 text-right ${
+                        className={`text-xs sm:text-sm font-medium font-mono text-right whitespace-nowrap sm:w-28 ${
                           txn.type === 'credit' ? 'text-success' : 'text-text-primary'
                         }`}
                       >
@@ -183,7 +187,7 @@ const Transactions = () => {
                           e.stopPropagation()
                           setReceiptTxn(txn)
                         }}
-                        className="w-8 h-8 rounded-md flex items-center justify-center text-text-muted hover:text-gold hover:bg-bg-elevated transition-colors duration-150"
+                        className="hidden sm:flex w-8 h-8 rounded-md items-center justify-center text-text-muted hover:text-gold hover:bg-bg-elevated transition-colors duration-150"
                         aria-label="View receipt"
                       >
                         <i className="ti ti-receipt" style={{ fontSize: 16 }} aria-hidden="true" />

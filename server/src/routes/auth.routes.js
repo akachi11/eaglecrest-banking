@@ -9,6 +9,7 @@ import {
   updateProfile,
   updatePreferences,
   changePassword,
+  setTransactionPin,
   approveApplication,
 } from '../controllers/auth.controller.js';
 
@@ -44,5 +45,12 @@ router.get('/me', protect, getMe);
 router.patch('/me', protect, updateProfile);
 router.patch('/me/preferences', protect, updatePreferences);
 router.patch('/me/password', protect, changePassword);
+router.patch(
+  '/me/pin',
+  protect,
+  [body('pin').matches(/^\d{4}$/).withMessage('PIN must be exactly 4 digits')],
+  validate,
+  setTransactionPin
+);
 
 export default router;
