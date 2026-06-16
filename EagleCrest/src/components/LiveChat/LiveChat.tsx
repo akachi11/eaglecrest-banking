@@ -3,6 +3,9 @@ import { getChatbotReply } from '../../lib/chatbot';
 import { CHAT_GREETING, CHAT_SUGGESTIONS } from '../../lib/chatbotKnowledge';
 import { SUPPORT_EMAIL } from '../../lib/supportConfig';
 
+// Set to true to re-enable the live chat widget
+const LIVE_CHAT_ENABLED = false;
+
 interface ChatMessage {
   id: string;
   sender: 'bot' | 'user';
@@ -16,6 +19,8 @@ const createMessage = (sender: ChatMessage['sender'], text: string): ChatMessage
 });
 
 export const LiveChat: React.FC = () => {
+  if (!LIVE_CHAT_ENABLED) return null;
+
   const [open, setOpen] = useState(false);
   const [messages, setMessages] = useState<ChatMessage[]>([createMessage('bot', CHAT_GREETING)]);
   const [input, setInput] = useState('');
