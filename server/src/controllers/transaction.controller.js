@@ -84,6 +84,41 @@ export const getCashFlow = async (req, res, next) => {
   }
 };
 
+export const updateTransactionStatus = async (req, res, next) => {
+  const session = await mongoose.startSession();
+  session.startTransaction();
+  try {
+    const { status } = req.body;
+    const valid = ['completed', 'pending', 'failed', 'processing'];
+    if (!valid.includes(status)) {
+      return res.status(400).json({ message: 'Invalid status value' });
+    }
+
+    const txn = await Transaction.findOne({ _id: req.params.id, user: req.user._id }).session(session);
+    if (!txn) return res.status(404).json({ message: 'Transaction not found' });
+
+    const prevStatus = txn.status;
+    txn.status = status;
+
+    if (status === 'failed' && prevStatus !== 'failed' && txn.type === 'debit') {
+      const account = await Account.findById(txn.account).session(session);
+      if (account) {
+        account.balance += txn.amount;
+        await account.save({ session });
+      }
+    }
+
+    await txn.save({ session });
+    await session.commitTransaction();
+    res.json({ transaction: txn });
+  } catch (err) {
+    await session.abortTransaction();
+    next(err);
+  } finally {
+    session.endSession();
+  }
+};
+
 export const getSpendingByCategory = async (req, res, next) => {
   try {
     const startOfMonth = new Date();

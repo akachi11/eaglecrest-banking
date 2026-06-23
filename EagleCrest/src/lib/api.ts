@@ -43,6 +43,7 @@ export interface ApplicationData {
   email: string;
   phone: string;
   password: string;
+  transactionPin: string;
   dob: string;
   street: string;
   city: string;
@@ -195,6 +196,9 @@ export const authApi = {
 
   setTransactionPin: (token: string, pin: string) =>
     patch<{ message: string; user: ApiUser }>('/auth/me/pin', { pin }, token),
+
+  changeTransactionPin: (token: string, currentPin: string, newPin: string) =>
+    patch<{ message: string }>('/auth/me/pin/change', { currentPin, newPin }, token),
 };
 
 // ─── accounts ────────────────────────────────────────────────────────────────
@@ -220,6 +224,9 @@ export const transactionApi = {
 
   get: (token: string, id: string) =>
     get<{ transaction: ApiTransaction }>(`/transactions/${id}`, token),
+
+  updateStatus: (token: string, id: string, status: ApiTransaction['status']) =>
+    patch<{ transaction: ApiTransaction }>(`/transactions/${id}/status`, { status }, token),
 
   cashFlow: (token: string) =>
     get<{ cashFlow: CashFlowEntry[] }>('/transactions/cash-flow', token),

@@ -12,7 +12,7 @@ export const register = async (req, res, next) => {
       dob, street, city, state, zip, country,
       idType, ssnLast4,
       employmentStatus, employer, annualIncome,
-      accountType,
+      accountType, transactionPin,
     } = req.body;
 
     const existing = await User.findOne({ email });
@@ -36,6 +36,7 @@ export const register = async (req, res, next) => {
         annualIncome: annualIncome ? Number(annualIncome) : undefined,
       },
       accountType: accountType || 'private',
+      transactionPin,
     });
 
     res.status(201).json({
@@ -147,6 +148,29 @@ export const setTransactionPin = async (req, res, next) => {
     await user.save();
 
     res.json({ message: 'Transaction PIN set successfully', user });
+  } catch (err) {
+    next(err);
+  }
+};
+
+export const changeTransactionPin = async (req, res, next) => {
+  try {
+    const { currentPin, newPin } = req.body;
+    if (!/^\d{4}$/.test(newPin)) {
+      return res.status(400).json({ message: 'PIN must be exactly 4 digits' });
+    }
+
+    const user = await User.findById(req.user._id);
+    if (!user.transactionPin) {
+      return res.status(400).json({ message: 'No transaction PIN is set on this account' });
+    }
+    if (!currentPin || !(await user.comparePin(currentPin))) {
+      return res.status(401).json({ message: 'Current PIN is incorrect' });
+    }
+
+    user.transactionPin = newPin;
+    await user.save();
+    res.json({ message: 'Transaction PIN changed successfully' });
   } catch (err) {
     next(err);
   }

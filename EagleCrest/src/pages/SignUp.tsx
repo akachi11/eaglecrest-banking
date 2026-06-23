@@ -66,7 +66,7 @@ interface FormState {
   ssnLast4: string
   employmentStatus: string; employer: string; incomeRange: number
   accountType: 'checking' | 'savings' | 'private'
-  password: string; confirm: string; agreed: boolean
+  password: string; confirm: string; transactionPin: string; confirmPin: string; agreed: boolean
 }
 
 const INIT: FormState = {
@@ -75,7 +75,7 @@ const INIT: FormState = {
   idType: '', ssnLast4: '',
   employmentStatus: '', employer: '', incomeRange: 0,
   accountType: 'private',
-  password: '', confirm: '', agreed: false,
+  password: '', confirm: '', transactionPin: '', confirmPin: '', agreed: false,
 }
 
 // ─── per-step validation ──────────────────────────────────────────────────────
@@ -109,6 +109,8 @@ function validateStep(step: number, f: FormState): FormErrors {
   if (step === 4) {
     if (!f.password || f.password.length < 8) e.password = 'Minimum 8 characters'
     if (f.confirm !== f.password) e.confirm = 'Passwords do not match'
+    if (!/^\d{4}$/.test(f.transactionPin)) e.transactionPin = 'PIN must be exactly 4 digits'
+    if (f.confirmPin !== f.transactionPin) e.confirmPin = 'PINs do not match'
     if (!f.agreed) e.agreed = 'You must accept the terms to proceed'
   }
   return e
@@ -124,6 +126,8 @@ const SignUp: React.FC = () => {
   const [submitted, setSubmitted] = useState(false)
   const [showPwd, setShowPwd] = useState(false)
   const [showConfirm, setShowConfirm] = useState(false)
+  const [showPin, setShowPin] = useState(false)
+  const [showConfirmPin, setShowConfirmPin] = useState(false)
 
   const set = <K extends keyof FormState>(field: K) => (val: FormState[K]) => {
     setForm((p) => ({ ...p, [field]: val }))
@@ -157,6 +161,7 @@ const SignUp: React.FC = () => {
         email: form.email.trim(),
         phone: form.phone.trim(),
         password: form.password,
+        transactionPin: form.transactionPin,
         dob: form.dob,
         street: form.street.trim(),
         city: form.city.trim(),
@@ -656,6 +661,55 @@ const SignUp: React.FC = () => {
                   </button>
                 </div>
                 <FieldError msg={errors.confirm} />
+              </div>
+
+              <div>
+                <Label>Transaction PIN</Label>
+                <p className="text-[11px] text-white/35 mb-2">4-digit PIN required to authorise all transfers</p>
+                <div className="relative">
+                  <input
+                    type={showPin ? 'text' : 'password'}
+                    placeholder="4-digit PIN"
+                    value={form.transactionPin}
+                    onChange={onChange('transactionPin')}
+                    maxLength={4}
+                    inputMode="numeric"
+                    autoComplete="new-password"
+                    className={`${fieldBase} pr-10 ${errors.transactionPin ? fieldError : fieldNormal}`}
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowPin((v) => !v)}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-white/30 hover:text-white/60 transition-colors duration-150"
+                  >
+                    <i className={`ti ${showPin ? 'ti-eye-off' : 'ti-eye'}`} style={{ fontSize: 15 }} aria-hidden="true" />
+                  </button>
+                </div>
+                <FieldError msg={errors.transactionPin} />
+              </div>
+
+              <div>
+                <Label>Confirm Transaction PIN</Label>
+                <div className="relative">
+                  <input
+                    type={showConfirmPin ? 'text' : 'password'}
+                    placeholder="Repeat your PIN"
+                    value={form.confirmPin}
+                    onChange={onChange('confirmPin')}
+                    maxLength={4}
+                    inputMode="numeric"
+                    autoComplete="new-password"
+                    className={`${fieldBase} pr-10 ${errors.confirmPin ? fieldError : fieldNormal}`}
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowConfirmPin((v) => !v)}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-white/30 hover:text-white/60 transition-colors duration-150"
+                  >
+                    <i className={`ti ${showConfirmPin ? 'ti-eye-off' : 'ti-eye'}`} style={{ fontSize: 15 }} aria-hidden="true" />
+                  </button>
+                </div>
+                <FieldError msg={errors.confirmPin} />
               </div>
 
               <label className="flex items-start gap-3 cursor-pointer mt-1">

@@ -10,6 +10,7 @@ import {
   updatePreferences,
   changePassword,
   setTransactionPin,
+  changeTransactionPin,
   approveApplication,
 } from '../controllers/auth.controller.js';
 
@@ -22,6 +23,7 @@ router.post(
     body('lastName').trim().notEmpty().withMessage('Last name is required'),
     body('email').isEmail().withMessage('Valid email is required'),
     body('password').isLength({ min: 8 }).withMessage('Password must be at least 8 characters'),
+    body('transactionPin').matches(/^\d{4}$/).withMessage('Transaction PIN must be exactly 4 digits'),
   ],
   validate,
   register
@@ -51,6 +53,17 @@ router.patch(
   [body('pin').matches(/^\d{4}$/).withMessage('PIN must be exactly 4 digits')],
   validate,
   setTransactionPin
+);
+
+router.patch(
+  '/me/pin/change',
+  protect,
+  [
+    body('currentPin').matches(/^\d{4}$/).withMessage('Current PIN must be exactly 4 digits'),
+    body('newPin').matches(/^\d{4}$/).withMessage('New PIN must be exactly 4 digits'),
+  ],
+  validate,
+  changeTransactionPin
 );
 
 export default router;

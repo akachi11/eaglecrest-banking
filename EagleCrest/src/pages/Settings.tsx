@@ -59,6 +59,14 @@ const Settings = () => {
   const [pwSaved, setPwSaved] = useState(false)
   const [pwError, setPwError] = useState('')
 
+  // Transaction PIN
+  const [currentPin, setCurrentPin] = useState('')
+  const [newPin, setNewPin] = useState('')
+  const [confirmNewPin, setConfirmNewPin] = useState('')
+  const [pinSaving, setPinSaving] = useState(false)
+  const [pinSaved, setPinSaved] = useState(false)
+  const [pinError, setPinError] = useState('')
+
   // Preferences
   const [twoFactor, setTwoFactor] = useState(false)
   const [biometric, setBiometric] = useState(false)
@@ -115,6 +123,27 @@ const Settings = () => {
       setPwError(err instanceof Error ? err.message : 'Failed to change password')
     } finally {
       setPwSaving(false)
+    }
+  }
+
+  const handlePinChange = async () => {
+    if (!token) return
+    if (!/^\d{4}$/.test(newPin)) { setPinError('New PIN must be exactly 4 digits'); return }
+    if (newPin !== confirmNewPin) { setPinError('PINs do not match'); return }
+    if (!/^\d{4}$/.test(currentPin)) { setPinError('Current PIN must be exactly 4 digits'); return }
+    setPinError('')
+    setPinSaving(true)
+    try {
+      await authApi.changeTransactionPin(token, currentPin, newPin)
+      setCurrentPin('')
+      setNewPin('')
+      setConfirmNewPin('')
+      setPinSaved(true)
+      setTimeout(() => setPinSaved(false), 2200)
+    } catch (err) {
+      setPinError(err instanceof Error ? err.message : 'Failed to change PIN')
+    } finally {
+      setPinSaving(false)
     }
   }
 
@@ -248,6 +277,54 @@ const Settings = () => {
                   Update Password
                 </Button>
                 {pwSaved && <Badge variant="success" dot>Password updated</Badge>}
+              </div>
+            </div>
+
+            {/* Change Transaction PIN */}
+            <div className="mt-5 pt-5 border-t border-border">
+              <p className="text-[13px] font-medium text-text-primary mb-1">Change Transaction PIN</p>
+              <p className="text-xs text-text-muted mb-4">Your 4-digit PIN is required to authorise all transfers</p>
+              {pinError && (
+                <p className="text-xs text-danger mb-3 p-3 bg-danger/[0.08] rounded-md border border-danger/20">{pinError}</p>
+              )}
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <Input
+                  label="Current PIN"
+                  type="password"
+                  icon="ti-lock"
+                  value={currentPin}
+                  onChange={(e) => setCurrentPin(e.target.value.replace(/\D/g, '').slice(0, 4))}
+                  placeholder="••••"
+                />
+                <Input
+                  label="New PIN"
+                  type="password"
+                  icon="ti-lock-check"
+                  value={newPin}
+                  onChange={(e) => setNewPin(e.target.value.replace(/\D/g, '').slice(0, 4))}
+                  placeholder="••••"
+                />
+                <Input
+                  label="Confirm New PIN"
+                  type="password"
+                  icon="ti-lock-check"
+                  value={confirmNewPin}
+                  onChange={(e) => setConfirmNewPin(e.target.value.replace(/\D/g, '').slice(0, 4))}
+                  placeholder="••••"
+                />
+              </div>
+              <div className="flex items-center gap-3 mt-4">
+                <Button
+                  variant="secondary"
+                  size="sm"
+                  icon="ti-keyframe"
+                  loading={pinSaving}
+                  disabled={!currentPin || !newPin || !confirmNewPin}
+                  onClick={handlePinChange}
+                >
+                  Update PIN
+                </Button>
+                {pinSaved && <Badge variant="success" dot>PIN updated</Badge>}
               </div>
             </div>
           </Card>

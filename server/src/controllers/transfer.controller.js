@@ -34,8 +34,10 @@ export const sendTransfer = async (req, res, next) => {
     const recipient = await Recipient.findOne({ _id: recipientId, user: req.user._id }).session(session);
     if (!recipient) return res.status(404).json({ message: 'Recipient not found' });
 
-    // Funds are not deducted yet — the transaction is created as 'pending'
-    // and the balance is only adjusted once an admin marks it complete.
+    // Deduct immediately on initiation; credited back if status is set to 'failed'
+    account.balance -= amount;
+    await account.save({ session });
+
     const txn = await Transaction.create(
       [
         {
